@@ -1,0 +1,42 @@
+{
+  "name": "@__SCOPE__/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/export.d.ts",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "migrate:latest": "knex --knexfile src/db/knexfile.ts migrate:latest",
+    "migrate:make": "knex --knexfile src/db/knexfile.ts migrate:make",
+    "migrate:rollback": "knex --knexfile src/db/knexfile.ts migrate:rollback",
+    "ensure:schema": "tsx src/db/ensureSchema.ts",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@contracts/core": "workspace:*",
+    "@fastify/cors": "latest",
+    "@trpc/server": "latest",
+    "dotenv": "latest",
+    "fastify": "latest",
+    "knex": "latest",
+    "pg": "latest",
+    "openai": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "jest": "latest",
+    "ts-jest": "latest",
+    "ts-node": "latest",
+    "tsx": "latest",
+    "typescript": "latest",
+    "zod": "^3.23.8"
+  }
+}
+
+

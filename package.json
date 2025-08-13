@@ -1,0 +1,25 @@
+{
+  "name": "@scaffold/generator",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "bin": {
+    "bootstrap-monorepo": "dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "minimatch": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/minimatch": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
+}

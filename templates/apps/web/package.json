@@ -1,0 +1,42 @@
+{
+  "name": "@__SCOPE__/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@__SCOPE__/server": "workspace:*",
+    "@contracts/core": "workspace:*",
+    "@tanstack/react-query": "latest",
+    "@trpc/client": "latest",
+    "@trpc/react-query": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "identity-obj-proxy": "latest",
+    "jest": "latest",
+    "jest-environment-jsdom": "latest",
+    "ts-jest": "latest",
+    "ts-node": "latest",
+    "typescript": "latest",
+    "vite": "latest",
+    "@vitejs/plugin-react": "latest"
+  }
+}
+
+

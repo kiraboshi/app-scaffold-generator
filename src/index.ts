@@ -96,13 +96,13 @@ function rewriteRootPackageJson(filePath: string, newName: string) {
   const scope = newName
   if (pkg.scripts && typeof pkg.scripts.dev === 'string') {
     pkg.scripts.dev = String(pkg.scripts.dev)
-      .replaceAll('@app/server', `@${scope}/server`)
-      .replaceAll('@app/web', `@${scope}/web`)
+      .split('@app/server').join(`@${scope}/server`)
+      .split('@app/web').join(`@${scope}/web`)
   }
   if (pkg.scripts && typeof pkg.scripts.build === 'string') {
     pkg.scripts.build = String(pkg.scripts.build)
-      .replaceAll('@app/server', `@${scope}/server`)
-      .replaceAll('@app/web', `@${scope}/web`)
+      .split('@app/server').join(`@${scope}/server`)
+      .split('@app/web').join(`@${scope}/web`)
   }
   writeJson(filePath, pkg)
 }
@@ -110,6 +110,7 @@ function rewriteRootPackageJson(filePath: string, newName: string) {
 function rewriteWorkspacePackages(rootDir: string, newScope: string) {
   const serverPkgPath = path.join(rootDir, 'apps', 'server', 'package.json')
   const webPkgPath = path.join(rootDir, 'apps', 'web', 'package.json')
+  const cliPkgPath = path.join(rootDir, 'apps', 'cli', 'package.json')
   const contractsPkgPath = path.join(rootDir, 'packages', 'contracts', 'package.json')
 
   if (fs.existsSync(serverPkgPath)) {
@@ -131,6 +132,19 @@ function rewriteWorkspacePackages(rootDir: string, newScope: string) {
       if (pkg.dependencies['@contracts/core']) pkg.dependencies['@contracts/core'] = 'workspace:*'
     }
     writeJson(webPkgPath, pkg)
+  }
+  if (fs.existsSync(cliPkgPath)) {
+    const pkg = readJson(cliPkgPath)
+    pkg.name = `@${newScope}/cli`
+    if (pkg.dependencies) {
+      if (pkg.dependencies['@app/server']) {
+        const version = 'workspace:*'
+        delete pkg.dependencies['@app/server']
+        pkg.dependencies[`@${newScope}/server`] = version
+      }
+      if (pkg.dependencies['@contracts/core']) pkg.dependencies['@contracts/core'] = 'workspace:*'
+    }
+    writeJson(cliPkgPath, pkg)
   }
   if (fs.existsSync(contractsPkgPath)) {
     const pkg = readJson(contractsPkgPath)
@@ -192,7 +206,7 @@ function rewriteImportsToScopedName(rootDir: string, scope: string) {
         if (!hasExt) continue
         const content = fs.readFileSync(full, 'utf8')
         if (content.includes("'@app/server'") || content.includes('"@app/server"')) {
-          const next = content.replaceAll('@app/server', `@${scope}/server`)
+        const next = content.split('@app/server').join(`@${scope}/server`)
           fs.writeFileSync(full, next)
         }
       }

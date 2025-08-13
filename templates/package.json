@@ -5,6 +5,7 @@
   "scripts": {
     "prepare:pnpm": "node -e \"require('child_process').execSync('corepack prepare pnpm@latest --activate', { stdio: 'inherit' })\"",
     "dev": "concurrently -c auto -n server,web \"pnpm --filter @__SCOPE__/server dev\" \"pnpm --filter @__SCOPE__/web dev\"",
+    "cli": "pnpm --filter @__SCOPE__/cli cli",
     "typecheck": "tsc -b",
     "test": "pnpm -r --parallel test",
     "test:watch": "pnpm -r --parallel test:watch"

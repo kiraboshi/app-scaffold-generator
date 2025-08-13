@@ -3,7 +3,8 @@
   "references": [
     { "path": "packages/contracts" },
     { "path": "apps/server" },
-    { "path": "apps/web" }
+    { "path": "apps/web" },
+    { "path": "apps/cli" }
   ],
   "compilerOptions": {
     "target": "ES2022",
